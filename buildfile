@@ -1,6 +1,5 @@
 require 'buildr_plus'
 BuildrPlus::Jenkins.auto_deploy = false
-BuildrPlus::Checkstyle.modern_checkstyle_rule_type = true
 
 require 'buildr_plus/projects/java_singlemodule'
 

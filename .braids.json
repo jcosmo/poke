@@ -1,0 +1,7 @@
+{
+  "vendor/tools/buildr_plus": {
+    "url": "https://github.com/realityforge/buildr_plus.git",
+    "branch": "master",
+    "revision": "d1bed7192f9911631562c401cded0a116535b02e"
+  }
+}
