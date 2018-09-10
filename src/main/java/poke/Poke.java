@@ -3,8 +3,8 @@ package poke;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import org.realityforge.keycloak.client.authfilter.Keycloak;
 import org.realityforge.keycloak.client.authfilter.KeycloakConfig;
 
@@ -61,20 +61,24 @@ public class Poke
       final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestMethod( "GET" );
       connection.setRequestProperty( "Authorization", "Bearer " + _keycloak.getAccessTokenString() );
-      if ( connection.getResponseCode() != 200 )
+      if ( connection.getResponseCode() != 200 && connection.getResponseCode() != 303 )
       {
-        System.out.println("Failed to connect: " + connection.getResponseMessage() );
+        System.out.println( "Failed to connect: (" +
+                            connection.getResponseCode() +
+                            "): " +
+                            connection.getResponseMessage() );
         return;
       }
-      final BufferedReader in = new BufferedReader( new InputStreamReader( connection.getInputStream()));
+      final BufferedReader in = new BufferedReader( new InputStreamReader( connection.getInputStream() ) );
       String inputLine;
       final StringBuilder content = new StringBuilder();
-      while ((inputLine = in.readLine()) != null) {
-        content.append(inputLine);
+      while ( ( inputLine = in.readLine() ) != null )
+      {
+        content.append( inputLine ).append( "\n" );
       }
       in.close();
       connection.disconnect();
-      System.out.println( "content = " + content );
+      Arrays.stream( content.toString().split( "\n" ) ).forEach( System.out::println );
     }
     catch ( Exception e )
     {
