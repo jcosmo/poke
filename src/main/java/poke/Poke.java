@@ -60,7 +60,7 @@ public class Poke
       final URL url = new URL( _url );
       final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestMethod( "GET" );
-      connection.setRequestProperty( "Authorization", "Bearer " + _keycloak.getAccessTokenString() );
+      connection.setRequestProperty( "Authorization", "Bearer " + _keycloak.getAccessToken() );
       if ( connection.getResponseCode() != 200 && connection.getResponseCode() != 303 )
       {
         System.out.println( "Failed to connect: (" +
